@@ -1,20 +1,10 @@
-from text_summarize import text_summarizer
+from fetch_summarize_news import fetch_and_summarize_news
 
-print("Enter the text you want to summarize:")
-text_lines = []
-while True:
-    line = input()
-    if line.strip() == "":
-        break
-    text_lines.append(line)
-
-text = "\n".join(text_lines)
-
-try:
-    n = int(input("\nEnter the number of sentences: "))
-except ValueError:
-    print("Invalid input. Please enter a valid number.")
-    exit()
-
-summary = text_summarizer(text, n)
-print(summary)
+query = input("Enter a topic to search for news articles: ")
+num_sentences = int(input("Enter the number of sentences for each summary: "))
+titles,urls,contents,summaries= fetch_and_summarize_news(query, num_sentences)
+for i in range(len(titles)):
+    print(f"""\nTitle ->{titles[i]}:\n
+            \nURL ->{urls[i]}\n
+            \nContent ->{contents[i]}\n
+            \nSummaries ->{summaries[i]}\n\n""")
